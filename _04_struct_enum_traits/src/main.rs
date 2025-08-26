@@ -30,6 +30,44 @@ fn change_length(rect: &mut Rectangle, new_length: usize) {
     rect.length = new_length;
 }
 
+#[derive(Debug)]
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+
+#[derive(Debug)]
+enum Shape{
+    Circle(f64), //radius
+    Rectangle(f64,f64), //length,breadth
+}
+
+impl Shape{
+    fn new_circle(radius:f64)->Self{
+        Self::Circle(radius)
+    }
+
+    fn new_rectangle(length:f64, breadth:f64)->Self{
+        Self::Rectangle(length, breadth)
+    }
+
+
+    fn area(&self) -> f64 {
+        match self {
+            Self::Circle(radius) => std::f64::consts::PI * radius * radius,
+            Self::Rectangle(length, breadth) => length * breadth,
+        }
+    }
+
+    fn perimeter(&self) -> f64 {
+        match self {
+            Self::Circle(radius) => 2.0 * std::f64::consts::PI * radius,
+            Self::Rectangle(length, breadth) => 2.0 * (length + breadth),
+        }
+    }
+}
+
 fn main(){
     println!("Inside the struct block!");
 
@@ -47,5 +85,31 @@ fn main(){
 
 
     println!("Rectangle 2 (area): {}", rect2.area());
+
+    println!("Starting the Enum Block");
+    let color1 = Color::Red;
+    let color2 = Color::Green;
+    let color3 = Color::Blue;
+    println!("Color1, Color2, Color3 are: {:?}, {:?}, {:?}", color1, color2, color3);
+
+    match color2 {
+        Color::Red => println!("Color is Red"),
+        Color::Green => println!("Color is Green"),
+        Color::Blue => println!("Color is Blue"),
+    }
+
+    println!("Starting the Shape Block");
+    let circle = Shape::new_circle(5.0);
+    let rectangle = Shape::new_rectangle(4.0, 6.0);
+
+    println!("Circle: {:?}", circle);
+    println!("Rectangle: {:?}", rectangle);
+
+
+    println!("Circle (area): {}", circle.area());
+    println!("Circle (perimeter): {}", circle.perimeter());
+
+    println!("Rectangle (area): {}", rectangle.area());
+    println!("Rectangle (perimeter): {}", rectangle.perimeter());
 
 }
