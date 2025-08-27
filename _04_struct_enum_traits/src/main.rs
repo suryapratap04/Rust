@@ -68,6 +68,30 @@ impl Shape{
     }
 }
 
+fn get_user_number(input:i32)->Option<i32>{
+    if input ==1 {
+        return Some(1234);
+    }else if input==2{
+        return Some(5678);
+    }
+    None
+}
+
+fn divide_numbers(num1:i32, num2:i32)->Result<i32, String>{
+   if num2 == 0 {
+       Err("Division by zero error".into())
+   } else {
+       Ok(num1 / num2)
+   }
+}
+fn divide_return(num1:i32, num2:i32)->Result<i32, i32>{
+   if num2 == 0 {
+       Err(0)
+   } else {
+       Ok(num1 / num2)
+   }
+}
+
 fn main(){
     println!("Inside the struct block!");
 
@@ -112,4 +136,23 @@ fn main(){
     println!("Rectangle (area): {}", rectangle.area());
     println!("Rectangle (perimeter): {}", rectangle.perimeter());
 
+    println!("Starting of the Optional Enum Block");
+    let input1 = 5;
+    println!("Input1 is: {} and the Particular number is {:?}",input1, get_user_number(input1));
+    match get_user_number(input1) {
+        Some(number) => println!("User number is: {}", number),
+        None => println!("No user number found"),
+    }
+
+    let result = divide_return(10, 0);
+    match result {
+        Ok(value) => println!("Division result is: {}", value),
+        Err(error) => println!("Error occurred: {}", error),
+    }
+
+    let result = divide_numbers(10, 0);
+    match result {
+        Ok(value) => println!("Division result is: {}", value),
+        Err(error) => println!("Error occurred: {}", error),
+    }
 }
